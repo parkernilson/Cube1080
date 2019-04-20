@@ -75,4 +75,7 @@ export class CubeCollection {
 	getCubeGroup(): THREE.Group {
 		return this.cubeGroup;
 	}
+
+	render(delta: number) {
+	}
 }

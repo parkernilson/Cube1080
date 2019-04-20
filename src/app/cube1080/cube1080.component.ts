@@ -19,6 +19,7 @@ export class Cube1080Component implements OnInit {
 
 	ngOnInit() {
 		this.engineService.addGroupToScene(this.cubeService.getCubeCollection().getCubeGroup());
+		this.engineService.addToRenderList(this.cubeService);
 	}
 
 }

@@ -14,6 +14,7 @@ export class ThreeEngineService {
 	private pointLight: THREE.PointLight;
 
 	private delta: number = 0;
+	private prev: number;
 
 	private renderList: any[] = [];
 
@@ -92,6 +93,7 @@ export class ThreeEngineService {
 	}
 
 	render() {
+		if(!this.prev) this.prev = performance.now();
 
 		requestAnimationFrame(() => {
 		  this.render();
@@ -99,13 +101,13 @@ export class ThreeEngineService {
 
 		//render all of the components in the render list (if they are not null)
 		for(var i = 0; i < this.renderList.length; ++i){
+			this.delta = performance.now() - this.prev;
 			if(this.renderList[i] !== null) this.renderList[i].render(this.delta);
 		}
 
 		this.renderer.render(this.scene, this.camera);
 
-		//TODO: make this an actual delta with perfomance.now() or some other type of timer
-		this.delta += 0.01;
+		this.prev = performance.now();
 	}
 
 	resize() {

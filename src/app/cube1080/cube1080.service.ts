@@ -17,11 +17,15 @@ export class Cube1080Service {
 			width: 3,
 			height: 3,
 			depth: 3,
-			subSize: 0.9
+			subSize: 0.99
 		});
 	}
 
 	getCubeCollection(): CubeCollection {
 		return this.cubeCollection;
+	}
+
+	render(delta: number) {
+		this.cubeCollection.render(delta);
 	}
 }
