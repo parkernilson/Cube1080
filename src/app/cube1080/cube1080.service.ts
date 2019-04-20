@@ -16,7 +16,8 @@ export class Cube1080Service {
 		this.cubeCollection = new CubeCollection({
 			width: 3,
 			height: 3,
-			depth: 3
+			depth: 3,
+			subSize: 0.9
 		});
 	}
 

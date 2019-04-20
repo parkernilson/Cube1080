@@ -5,6 +5,8 @@ interface CubeCollectionOptions {
 	width: number;
 	height: number;
 	depth: number;
+	/** size of the sub cubes, value: 0 to 1 */
+	subSize: number;
 	numCubesX?: number;
 	numCubesY?: number;
 	numCubesZ?: number;
@@ -18,6 +20,7 @@ export class CubeCollection {
 	width: number;
 	height: number;
 	depth: number;
+	subSize: number;
 
 	/** number of cubes in the X direction in this column */
 	numCubesX: number = 5;
@@ -33,6 +36,7 @@ export class CubeCollection {
 		this.width = options.width;
 		this.height = options.height;
 		this.depth = options.depth;
+		this.subSize = options.subSize;
 
 		if(options.numCubesX) this.numCubesX = options.numCubesX;
 		if(options.numCubesY) this.numCubesY = options.numCubesY;
@@ -42,12 +46,10 @@ export class CubeCollection {
 			for(var y = 0; y < this.numCubesY; ++y) {
 				for(var z = 0; z < this.numCubesZ; ++z) {
 
-					var cubeSize = 1;
-
 					var position = {
-						x: (x - ((this.numCubesX - 1) / 2)) * (cubeSize * (this.width / this.numCubesX)),
-						y: (y - ((this.numCubesY - 1) / 2)) * (cubeSize * (this.height / this.numCubesY)),
-						z: (z - ((this.numCubesZ - 1) / 2)) * (cubeSize * (this.depth / this.numCubesZ))
+						x: (x - ((this.numCubesX - 1) / 2)) * (this.width / this.numCubesX),
+						y: (y - ((this.numCubesY - 1) / 2)) * (this.height / this.numCubesY),
+						z: (z - ((this.numCubesZ - 1) / 2)) * (this.depth / this.numCubesZ)
 					}
 
 					var cube = new Cube({
@@ -56,9 +58,9 @@ export class CubeCollection {
 							y: y,
 							z: z
 						},
-						width: (1 / this.numCubesX) * this.width,
-						height: (1 / this.numCubesY) * this.height,
-						depth: (1/ this.numCubesZ) * this.depth,
+						width: ((1 / this.numCubesX) * this.width) * this.subSize,
+						height: (1 / this.numCubesY) * this.height * this.subSize,
+						depth: (1/ this.numCubesZ) * this.depth * this.subSize,
 						position: position
 					})
 

@@ -16,7 +16,7 @@ interface CubeOptions {
 
 export class Cube {
 	private mesh: THREE.Mesh;
-	private color: number = 0xffffff;
+	private color: THREE.Color;
 	private material: THREE.Material;
 	private geometry: THREE.BoxBufferGeometry;
 	/** position of this cube in the CubeCollection it is a part of */
@@ -36,7 +36,12 @@ export class Cube {
 		this.height = height;
 		this.depth = depth;
 
-		this.color = Math.random() * 0xffffff;
+		//set the color in a 3d diagonal gradient
+		this.color = new THREE.Color(
+			1 * ((this.cPosition.x**2 + this.cPosition.y**2 + this.cPosition.z**2) / (5**2 + 5**2 + 5**2)),
+			1 * (Math.sqrt((this.cPosition.x**2 + this.cPosition.y**2 + this.cPosition.z**2)) / Math.sqrt((5**2 + 5**2 + 5**2))),
+			1
+		)
 
 		this.material = new THREE.MeshStandardMaterial({ color: this.color });
 		this.geometry = new THREE.BoxBufferGeometry(this.width, this.height, this.depth);
